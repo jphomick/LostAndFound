@@ -1,10 +1,10 @@
 package com.company;
 
 public class Item {
-    int itemId;
-    String name;
-    String cat;
-    boolean lost=true;
+    private int itemId;
+    private String name;
+    private String category;
+    private boolean lost;
 
     public int getItemId() {
         return itemId;
@@ -22,12 +22,16 @@ public class Item {
         this.name = name;
     }
 
-    public String getCat() {
-        return cat;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCat(String cat) {
-        this.cat = cat;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void claim() {
+        lost = false;
     }
 
     public boolean isLost() {
@@ -38,10 +42,10 @@ public class Item {
         this.lost = lost;
     }
 
-    public Item(int itemId, String name, String cat) {
+    public Item(int itemId, String name, String category) {
         this.itemId = itemId;
-
         this.name = name;
-        this.cat = cat;
+        this.category = category;
+        lost = false;
     }
 }

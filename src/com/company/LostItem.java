@@ -9,122 +9,97 @@ public class LostItem {
     ArrayList<Item> deleted= new ArrayList<>();
 
 
-public boolean addItem (Item item) {
-    boolean isin = false;
-    for (Item i : items) {
-        if (i.getItemId() == item.getItemId()) {
-            isin = true;
-
-
+    public boolean addItem (Item item) {
+        boolean isIn = false;
+        for (Item i : items) {
+            if (i.getItemId() == item.getItemId()) {
+                isIn = true;
+            }
         }
-    }
-    if (!isin) {
-        items.add(item);
-        return true;
-
-
-    } else {
-        return false;
+        if (!isIn) {
+            items.add(item);
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
-}
-public boolean deleteItem (int id)
-
-    {
+    public boolean deleteItem (int id) {
         Item toDelete=null;
 
-        for (Item i : items)
-        {
-            if (id == i.getItemId())
-            {
-             toDelete=i;
-
-
+        for (Item i : items) {
+            if (id == i.getItemId()) {
+                toDelete = i;
             }
-
         }
-        if (toDelete==null)
+
+        if (toDelete == null)
         {
             return false;
-
-        }else
-        {
+        } else {
             items.remove(toDelete);
             deleted.add(toDelete);
             return true;
         }
-
-
-
     }
+
+
     public boolean undeleteItem (int id)
 
     {
-        Item toUndelete=null;
+        Item toUndelete = null;
 
         for (Item i : deleted)
         {
             if (id == i.getItemId())
             {
-                toUndelete=i;
-
-
+                toUndelete = i;
             }
-
         }
-        if (toUndelete==null)
-        {
-            return false;
 
-        }else
-        {
+        if (toUndelete == null) {
+            return false;
+        } else {
             deleted.remove(toUndelete);
             items.add(toUndelete);
             return true;
         }
-
-
-
     }
-    public int itemsIn (String cat)
+
+    private int itemsIn (String category)
     {
         int count=0;
-        for (Item i: items)
-
-        {
-            if (i.getCat().equals (cat))
-            {
-                count ++;
-
+        for (Item i: items) {
+            if (i.getCategory().equals(category) && i.isLost()) {
+                count++;
             }
-
-
         }
         return count;
-
-
     }
-    public void displayCat()
-    {
+
+    public void displayCat() {
         ArrayList<String> seen=new ArrayList<>();
-        System.out.println("there are") ;
-        if (items.size()==0)
-        {
-            System.out.println("There are no items .");
-        } else
-        {
-            for (Item i : items )
-            {
-                if (!seen.contains(i.getCat()))
-                {
-                seen.add(i.getCat());
-                int count=itemsIn(i.getCat());
-                    System.out.println(count + " " + i.getCat() + " ");
+        if (items.size() == 0) {
+            System.out.println("There are no items.");
+        } else {
+            System.out.println("Missing items:");
+            for (Item i : items) {
+                if (!seen.contains(i.getCategory())) {
+                    seen.add(i.getCategory());
+                    int count = itemsIn(i.getCategory());
+                    System.out.println(count + " " + i.getCategory() + " missing");
                 }
             }
         }
+    }
 
-
+    public Item findItem(int id) {
+        for (Item i : items) {
+            if (i.getItemId() == id) {
+                return i;
+            }
+        }
+        return null;
     }
 }
